@@ -1,0 +1,78 @@
+- 2-1.
+    
+    깃 저장소 만들기
+    
+    1. 디렉터리 제작(mkdir (이름), cd (이름))
+    2. ls -la로 만들 디렉터리 안 따로 만들어진 파일 확인
+    3. git init로 깃 사용 초기화
+    4. 만들어진 git 파일 이동
+- 2-2.
+    - git 버전: 문서 수정, 저장 할 때마다 생김(개수가 많지면 수정 내용 기억 어려움)
+    - git 버전 관리 시스템: 버전을 만들고 수정 내용 기록 + 이름 변경×→ 버전마다 작업 내용 확인 + 되돌리기 가능
+    - 작업 트리: 파일 수정, 저장 등 하는 디렉터리(책 실습에선 hello-git = 작업 트리)
+    - 스테이지: 버전으로 만든 파일 대기 장소(파일 10개→ 4개만 버전 만들기→ 버전 만들 4개 파일 스테이지 영역 이동,가상 공간)
+    - 저장소: 리포지토리(스테이지 대기한 파일 버전 만듬) 저장 공간(가상 공간)
+    - hello.txt 파일 수정→ 스테이지 넣기→ 커밋 명령→ (저장소)버전 생성 & 스테이지 대기 파일 저장
+    - 작업 트리 문서 수정
+        1. git status(git 상태 확인)→ Onbranch main(현재 main 브렌치에 있음), No commits yet(커밋한 파일 없음), nothing to conmmit(현재 커밋할 파일 없음)
+        2. vim hello.txt(파일 생성)
+        3. 파일에 기록(git 상태: untracked files)
+    - 수정 파일 스테이지 올리기(스테이징)
+        - git add (파일 이름)(git 상태: change to be committed + new file)
+    - 스테이징 파일 커밋
+        1. git commit -m “massage1”(커밋 메세지)
+        2. 1 file change, 1insertion(+) = 저장소 저장
+        3. git 상태: nothing to commit(버전 만들 파일 없음) + working tree clean(작업 트리 깨끗)
+        4. git log: 버전 확인 용 문법, 커밋 메세지도 나옴
+    - 스케이징 + 커밋 한번에
+        1. 파일 내용 변환
+        2. git commit -am “message2”→커밋 한 것에 -am으로 스테이징 + 커밋 한번에 처리
+- 2-3.
+    - 커밋 기록 자세히 살펴보기 - git log→commit hash, git hash
+        1. 커밋 해시(최신버전)
+        2. 작성자
+        3. 버전 만든 날짜 + 커밋 로그
+        4. 커밋 메세지
+        5. 버전 만든 날짜 + 커밋 로그
+    - 변경 사항 확인 - git diff
+        1. 파일 내용 변경(git 상태: 스테이징 상태 아님)
+        2. git diff: 내용 변경 보여줌(-(사라진 내용), +(새로운 파일))
+- 2-4.
+    - track파일 untrack 파일
+        1. hello.txt 내용 추가 
+        2. 새로운 파일 hello2.txt 만들기 + 내용 추가(git 상태: Change not staged for commit = 변경 파일 스테이지 올리지 않음, modified = 변경됨(track 파일 = 추적 중 파일), untrack files = 커밋하지 않아 추적 안 한 파일)
+        3. 두 파일 스테이지 올리기
+        4. git 상태: Change to be committed
+            
+                            modified: hello.txt
+            
+                            new file: hello2.txt
+            
+        5. 커밋하기(커밋 메세지 = message3)
+        6. git log: 커밋 메세지 message3 뜸(관련 파일 호가인 불가)
+        7. git log —stat: 변경 내용 및 관련 파일 상세 정보
+    - unmodified, modified, stage 상태
+        1. ls -al로 hello2.txt는 버전 자장 후 아무 파일도 수정하지 않은 상태
+        2. git status→ working tree clean→ 모든 파일 unmodified
+        3. hello2.txt 파일 수정
+        4. (Change not staged for commit = 스테이지 안 올림 올리삼)→ modified
+        5. git add hello2.txt 스테이지 올림
+        6. Change to be committed = 커밋 직전 단계 = staged 상태
+        7. git commit -m “ delete b,c,d”
+            
+            git status→ hello2.txt는 unmodified 상태가 됨
+            
+- 2-5.
+    - 특정 커밋 되돌리기 git reset 해시
+        1. rex.txt 파일 생성 및 기록
+        2. R1을 붙여 커밋
+        3. rev.txt 수정 및 R2 붙여 커밋
+        4. 수정 및 R3,R4 붙여 커밋 두번
+        5. 리셋 할 커밋 해시 복사 및 git reset —hard (커밋 해시) 
+        6. cat rev.txt 하면 R2 붙여 커밋한 상황의 파일 출력
+    - 커밋 변경 이력 취소 - git revert
+        1. rev.txt 파일 생성 및 수정
+        2. R5 붙여 커밋
+        3. R5 커밋 해시 복사
+        4. git revert (복사 커밋 해시): R5 커밋 취소
+        5. R5 커밋 보류 및 R2 상태로 변함
