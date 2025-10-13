@@ -62,17 +62,3 @@
             
             git status→ hello2.txt는 unmodified 상태가 됨
             
-- 2-5.
-    - 특정 커밋 되돌리기 git reset 해시
-        1. rex.txt 파일 생성 및 기록
-        2. R1을 붙여 커밋
-        3. rev.txt 수정 및 R2 붙여 커밋
-        4. 수정 및 R3,R4 붙여 커밋 두번
-        5. 리셋 할 커밋 해시 복사 및 git reset —hard (커밋 해시) 
-        6. cat rev.txt 하면 R2 붙여 커밋한 상황의 파일 출력
-    - 커밋 변경 이력 취소 - git revert
-        1. rev.txt 파일 생성 및 수정
-        2. R5 붙여 커밋
-        3. R5 커밋 해시 복사
-        4. git revert (복사 커밋 해시): R5 커밋 취소
-        5. R5 커밋 보류 및 R2 상태로 변함
